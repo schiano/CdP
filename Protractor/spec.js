@@ -3,10 +3,10 @@ describe('Workshop test suit', function() {
   beforeEach(function() {
   	browser.driver.get('about:blank');
   	browser.get('http://37.187.102.237:8080/index.html');
+    //browser.waitForAngular();
   });
 
   it('should add "Toto" Workshop', function() {
-  	borwser.waitForAngular();
 	expect(browser.getTitle()).toEqual('Workshop');
 
 	// Counting the number of workshop
@@ -40,7 +40,7 @@ describe('Workshop test suit', function() {
     browser.driver.navigate().refresh();
 
     // We should have one more workshop
-    expect(Number(element(by.binding('remaining')).getText()).toEqual(nbWorkshopsAtTheEnd);
+    expect(Number(element(by.binding('remaining')).getText())).toEqual(nbWorkshopsAtTheEnd);
   });
 
   it('should modify "Toto" Workshop', function(){
@@ -48,7 +48,7 @@ describe('Workshop test suit', function() {
   	var allElements = element.all(by.css('li[ng-repeat="workshop in workshops | filter:statusFilter"]'));
   	var workshopToto;
 
-	for (var elem: allElements) {
+	for (var elem in allElements) {
 		if (elem.element(by.css('.black-txt')).getText() == 'Toto ( La blague )')
 		{
 			workshopToto = elem;
@@ -86,7 +86,7 @@ describe('Workshop test suit', function() {
   	var allElements = element.all(by.css('li[ng-repeat="workshop in workshops | filter:statusFilter"]'));
   	var workshopToto;
 
-	for (var elem: allElements) {
+	for (var elem in allElements) {
 		if (elem.element(by.css('.black-txt')).getText() == 'Toto ( La blague )')
 		{
 			workshopToto = elem;
@@ -98,12 +98,12 @@ describe('Workshop test suit', function() {
 	workshopToto.element(by.css('.destroy')).click();
 
 	// We should have one less workshop
-    expect(Number(element(by.binding('remaining')).getText()).toEqual(nbWorkshopsAtTheEnd);
+    expect(Number(element(by.binding('remaining')).getText())).toEqual(nbWorkshopsAtTheEnd);
 
     // Refresh the page
     browser.driver.navigate().refresh();
 
     // We should still have one less workshop
-    expect(Number(element(by.binding('remaining')).getText()).toEqual(nbWorkshopsAtTheEnd);
+    expect(Number(element(by.binding('remaining')).getText())).toEqual(nbWorkshopsAtTheEnd);
   });
 });
