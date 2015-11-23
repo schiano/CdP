@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Workshop</title>
+        <link rel="stylesheet" href="CSS/style.css">
+		<link rel="stylesheet" href="CSS/bootstrap.min.css">
+		<link rel="stylesheet" href="CSS/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="CSS/bootstrap-wysihtml5.css">
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+    </head>
+    
+    <body ng-app="workshop" ng-controller="WorkshopCtrl">
+	
+	<button class="btn btn-success btn-round pos-btn-add" ng-click="showHideForm()">{{AddButtonValue}}</button>
+	
+	<section class="workshop-pos">
+		<label class="title">Ateliers</label>
+		<header id="header" ng-show="form_visible">
+			<form id="workshop-form">
+				<div class="row">
+
+					<input type="text" class="input-workshop col-md-offset-1 col-md-5" id="new_workshop_title" placeholder="Nom" autofocus autocomplete="off" ng-model="new_workshop_title">
+					<input type="text" class="input-workshop col-md-5" id="new_workshop_theme" placeholder="Thème" autofocus autocomplete="off" ng-model="new_workshop_theme">          
+					<input type="text" class="input-workshop col-md-offset-1 col-md-5" id="new_workshop_type" placeholder="Type" autofocus autocomplete="off" ng-model="new_workshop_type">
+					<input type="text" class="input-workshop col-md-5" id="new_workshop_remarks" placeholder="Remarques" autofocus autocomplete="off" ng-model="new_workshop_remarks">
+					<input type="text" class="input-workshop col-md-offset-1 col-md-5" id="new_workshop_laboratory" placeholder="Laboratoire" autofocus autocomplete="off" ng-model="new_workshop_laboratory">
+					<input type="text" class="input-workshop col-md-5" id="new_workshop_duration" placeholder="Durée" autofocus autocomplete="off" ng-model="new_workshop_duration">
+					<input type="text" class="input-workshop col-md-offset-1 col-md-5" id="new_workshop_capacity" placeholder="Capacité (ex : 12)" autofocus autocomplete="off" ng-model="new_workshop_capacity">
+					<input type="text" class="input-workshop col-md-5" id="new_workshop_summary" placeholder="Summary" ng-model="new_workshop_summary"/>
+					
+					<input type="text" class="input-workshop col-md-offset-1 col-md-10" id="new_workshop_location" placeholder="Adresse" ng-model="new_workshop_location" googleplace/>
+					
+					<input type="text" class="input-workshop col-md-offset-1 col-md-5" id="new_workshop_target_public" placeholder="Public visé" autofocus autocomplete="off" ng-model="new_workshop_target_public">
+					<input type="text" class="input-workshop col-md-5" id="new_workshop_target_content" placeholder="Contenu pédagogique" autofocus autocomplete="off" ng-model="new_workshop_target_content">          
+					
+
+				</div>
+				
+				<div class="styled-select margin-top-10px">		
+					<select ng-model="new_workshop_inscription_type">
+						<option value="Sur réservation">Sur réservation</option>
+						<option value="Sans réservation">Sans réservation</option>
+					</select>
+				</div>
+				   	         	
+			</form>
+			<center><button class="btn btn-info margin-top-20px margin-bottom-20px" ng-click="addWorkshop()">Envoyer</button></center>
+		</header>
+
+		<section class="workshop-app">		
+	        <section id="main">
+	          <ul id="workshop-list">
+	            <li ng-repeat="workshop in workshops | filter:statusFilter">
+	              <div class="view" id="workshop_{{$index}}">
+	                <div class="workshop-header">
+	               		<label class="black-txt">{{workshop.title}}<i class="grey-txt"> ( {{workshop.theme}} )</i></label>
+	               		<label class="top-right pointer" ng-click="edit($index)">Editer</label>
+	                </div>
+	                <div class="width-78pc workshop-background">
+		                <label class="little-black-txt">Type : <span class="grey-txt">{{workshop.type}}</span></label>
+		            			            	
+		            	<label class="little-black-txt">Remarque : <span class="grey-txt">{{workshop.remarks}}</span></label>
+		                <label class="little-black-txt">Laboratoire : <span class="grey-txt">{{workshop.laboratory}}</span></label>
+		                <label class="little-black-txt">Adresse : <span class="grey-txt">{{workshop.location}}</span></label>
+		                <label class="little-black-txt">Durée : <span class="grey-txt">{{workshop.duration}}</span></label>
+		                <label class="little-black-txt">Capacité : <span class="grey-txt">{{workshop.capacity}}</span></label>
+		              	<label class="little-black-txt">Inscription : <span class="grey-txt">{{workshop.inscription_type}}</span></label>	
+		              	<label class="little-black-txt">Sommaire : <span class="grey-txt">{{workshop.summary}}</span></label>	
+
+		            	<label class="little-black-txt">Animateurs : <span class="grey-txt" ng-repeat="animator in workshop.animators"> &bull; {{animator}} </span></label>
+
+		            	<label class="little-black-txt">Partenaires : <span class="grey-txt" ng-repeat="partner in workshop.partners"> &bull; {{partner}} </span></label>
+
+		              	<label class="little-black-txt">Public : <span class="grey-txt">{{workshop.target_public}}</span></label>	
+		              	<label class="little-black-txt">Contenu pédagogique : <span class="grey-txt">{{workshop.target_content}}</span></label>	
+		              	<button class="destroy" ng-click="removeWorkshop($index)"></button>                
+		            </div>
+		 					 		            
+	              </div>
+	            </li>
+	          </ul>
+	        </section>
+	
+	        <footer id="footer">
+	          <span id="workshop-count"><strong>{{remaining}}</strong> Atelier(s)</span>
+			</footer>
+		</section>	
+      </section>
+
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+      <script type="text/javascript" src="JS/app.js"></script>
+    </body>
+</html>
